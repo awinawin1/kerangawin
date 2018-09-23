@@ -9,7 +9,7 @@ from linebot.exceptions import (
 from linebot.models import *
 import requests, json
 
-from random import randint
+#from random import randint
 import errno
 import os
 import sys, random
@@ -59,17 +59,21 @@ def handle_message(event):
     sender = event.source.user_id #get usesenderr_id
     gid = event.source.sender_id #get group_id
     profile = line_bot_api.get_profile(sender)
-    a=(randint(0, 9))
-    if a%2:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='Iya'))
-    else:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='Tidak'))
-    # if text=="who?":
-    #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text='ini awin'))
-    # if text=="where?":
-    #     line_bot_api.reply_message(event.reply_token,TextSendMessage(text='RPL'))
-    # if text=="why?":
-    #     line_bot_api.reply_message(event.reply_token,StickerSendMessage(package_id='1', sticker_id='1'))
+    #a=(randint(0, 9))
+    #if a%2:
+        #line_bot_api.reply_message(event.reply_token,TextSendMessage(text='Iya'))
+    #else:
+        #line_bot_api.reply_message(event.reply_token,TextSendMessage(text='Tidak'))
+    if text=="who?":
+    line_bot_api.reply_message(event.reply_token,TextSendMessage(text='ini awin'))
+    if text=="where?":
+       line_bot_api.reply_message(event.reply_token,TextSendMessage(text='RPL'))
+    if text=="why?":
+       line_bot_api.reply_message(event.reply_token,StickerSendMessage(package_id='1', sticker_id='1'))
+    if text=="minta gambar!":
+    line_bot_api.reply_message(event.reply_token,image_message = ImageSendMessage(
+    original_content_url='http://sinchan.freeservers.com/gambar/himawari3.gif',
+    preview_image_url='http://sinchan.freeservers.com/gambar/himawari3.gif'))
 
 
     line_bot_api.reply_message(event.reply_token,TextSendMessage(text='Halo '+profile.display_name+'\nKata Kunci Tidak Diketahui :) \nKetik "menu" untuk mengetahui menu yang tersedia'))
