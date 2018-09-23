@@ -59,12 +59,12 @@ def handle_message(event):
     sender = event.source.user_id #get usesenderr_id
     gid = event.source.sender_id #get group_id
     profile = line_bot_api.get_profile(sender)
-    if text=="adit":
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='Kamu jahat adit'))
-    if text=="mail":
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='Kamu jahat mail'))
-    if text=="djohan":
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='Kamu jahat djohan'))
+    if text=="who?":
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='ini awin'))
+    if text=="where?":
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='RPL'))
+    if text=="why?":
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='pingin aja.'))
 
     line_bot_api.reply_message(event.reply_token,TextSendMessage(text='Halo '+profile.display_name+'\nKata Kunci Tidak Diketahui :) \nKetik "menu" untuk mengetahui menu yang tersedia'))
 
