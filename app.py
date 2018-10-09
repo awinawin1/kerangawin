@@ -41,6 +41,7 @@ handler = WebhookHandler('aceac5ea108be34c9ec5d06c74094c5b')
 #===========[ NOTE SAVER ]=======================
 notes = {}
 
+#REQUEST DATA MHS
 # Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -60,8 +61,8 @@ def handle_message(event):
     gid = event.source.sender_id #get group_id
     profile = line_bot_api.get_profile(sender)
     
-    line_bot_api.reply_message(event.reply_token,TextSendMessage(text='event.message.text +' '+ profile.display_name))
-
+    line_bot_api.reply_message(event.reply_token,TextSendMessage(text="test"))
+    
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
