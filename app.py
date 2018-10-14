@@ -36,13 +36,13 @@ from linebot.models import (
 app = Flask(__name__)
 
 # Channel Access Token
-line_bot_api = LineBotApi('2SuilSaQz7z3veGQjioUZ/bqxYd7XQNxGNxqgXmsLXntv5w2r5YQVMjwNgP4TedFX+2Qn+AMdgdheLyIVSKDn/T14oxg0IDgs8IXD60kEMi0jnqViYpZRg5bq9pg29lR/S+JThQDSWHumiLeoMaHBQdB04t89/1O/w1cDnyilFU=')
+line_bot_api = LineBotApi('Yd9bSGIfnnSbIQMIktXnmylAcM7xOWpFVgX1qb0wOPdsUCHmQJESpvMh2RJSNLjeX+2Qn+AMdgdheLyIVSKDn/T14oxg0IDgs8IXD60kEMiPCUtK1P4j4g6ty5qMKogrQm4qH7e6tnmFqScoeEVT2AdB04t89/1O/w1cDnyilFU=')
 # Channel Secret
-handler = WebhookHandler('6e7f36d0a3dd7c5e8b8ed88414a880c2')
+handler = WebhookHandler('827a3082a52880e667b25a02b982c2f2')
 #===========[ NOTE SAVER ]=======================
 notes = {}
 
-#REQUEST DATA Teman
+#REQUEST DATA teman
 def cariteman(panggilan):
     URLpanggilan = "http://www.aditmasih.tk/api_awinawin/show.php?panggilan=" + panggilan
     r = requests.get(URLpanggilan)
@@ -66,7 +66,7 @@ def cariteman(panggilan):
     elif(flag == "0"):
         return err
 
-#INPUT DATA MHS
+#INPUT DATA teman
 def inputteman(panggilan, no_hp, hobby, jurusan, kampung):
     r = requests.post("http://www.aditmasih.tk/api_awinawin/insert.php", data={'panggilan': panggilan, 'no_hp': no_hp, 'hobby': hobby, 'jurusan': jurusan, 'kampung':kampung})
     data = r.json()
@@ -91,20 +91,20 @@ def hapusteman(panggilan):
     elif(flag == "0"):
         return 'Data gagal dihapus\n'
 
-def updateteman(panggilanjadul,panggilan,no_hp,hobby,jurusan,kampung):
-    URLteman = "http://www.aditmasih.tk/api_awin/show.php?panggilan=" + panggilanjadul
+def updateteman(panggilanJadul,panggilan,no_hp,hobby,jurusan,kampung):
+    URLteman = "http://www.aditmasih.tk/api_awin/show.php?panggilan=" + panggilanJadul
     r = requests.get(URLteman)
     data = r.json()
     err = "data tidak ditemukan"
     teman_jadul=temanjadul
     flag = data['flag']
     if(flag == "1"):
-        r = requests.post("http://www.aditmasih.tk/api_awinawin/update.php", data={'panggilan': panggilan, 'no_hp': no_hp, 'hobby': hobby, 'jurusan':jurusan, 'kampung':kampung 'panggilan_jadul':panggilan_jadul})
+        r = requests.post("http://www.aditmasih.tk/api_awinawin/update.php", data={'panggilan': panggilan, 'no_hp': no_hp, 'hobby': hobby, 'jurusan':jurusan, 'kampung':kampung 'panggilanJadul':panggilanJadul})
         data = r.json()
         flag = data['flag']
 
         if(flag == "1"):
-            return 'Data '+panggilan_jadul+'berhasil diupdate\n'
+            return 'Data '+panggilanJadul+'berhasil diupdate\n'
         elif(flag == "0"):
             return 'Data gagal diupdate\n'
 
@@ -134,7 +134,7 @@ def handle_message(event):
     if(data[0]=='lihat'):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=cariteman(data[1])))
     elif(data[0]=='tambah'):
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=inputteman(data[1],data[2],data[3],data[4]),data[5]))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=inputteman(data[1],data[2],data[3],data[4]),data[5])))
     elif(data[0]=='hapus'):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=hapusteman(data[1])))
     elif(data[0]=='ganti'):
