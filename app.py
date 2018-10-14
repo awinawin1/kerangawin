@@ -42,10 +42,10 @@ handler = WebhookHandler('827a3082a52880e667b25a02b982c2f2')
 #===========[ NOTE SAVER ]=======================
 notes = {}
 
-#REQUEST DATA teman
-def cariteman(panggilan):
-    URLpanggilan = "http://www.aditmasih.tk/api_awinawin/show.php?panggilan=" + panggilan
-    r = requests.get(URLpanggilan)
+#input mencari
+def cariteman(panggilan,no_hp,hobby,jurusan,kampung):
+    URLteman = "http://www.aditmasih.tk/api_awinawin/show.php?panggilan=" + panggilan
+    r = requests.get(URLteman)
     data = r.json()
     err = "data tidak ditemukan"
     
@@ -74,14 +74,14 @@ def inputteman(panggilan, no_hp, hobby, jurusan, kampung):
     flag = data['flag']
    
     if(flag == "1"):
-        return 'Data '+panggilan+' berhasil dimasukkan\n'
+        return 'Data '+' berhasil dimasukkan\n'
     elif(flag == "0"):
         return 'Data gagal dimasukkan\n'
 
 
 #DELETE DATA teman
-def hapusteman(panggilan):
-    r = requests.post("http://www.aditmasih.tk/api_awinawin/delete.php", data={'panggilan': panggilan})
+def hapusteman(no_hp):
+    r = requests.post("http://www.aditmasih.tk/api_awinawin/delete.php", data={'ho_hp': no_hp})
     data = r.json()
 
     flag = data['flag']
