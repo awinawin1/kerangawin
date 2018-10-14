@@ -87,7 +87,7 @@ def hapusteman(no_hp):
     flag = data['flag']
    
     if(flag == "1"):
-        return 'Data '+panggilan+' berhasil dihapus\n'
+        return 'Data '+no_hp+' berhasil dihapus\n'
     elif(flag == "0"):
         return 'Data gagal dihapus\n'
 
