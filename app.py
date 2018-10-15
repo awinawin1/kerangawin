@@ -43,23 +43,23 @@ handler = WebhookHandler('827a3082a52880e667b25a02b982c2f2')
 notes = {}
 
 #input mencari
-def cariteman(panggilan,no_hp,hobby,jurusan,kampung):
-    URLteman = "http://www.aditmasih.tk/api_awinawin/show.php?panggilan=" + panggilan
+def cariteman(no_hp):
+    URLteman = "http://www.aditmasih.tk/api_awinawin/show.php?no_hp=" + no_hp
     r = requests.get(URLteman)
     data = r.json()
     err = "data tidak ditemukan"
     
     flag = data['flag']
     if(flag == "1"):
-        panggilan = data['teman'][0]['panggilan']
-        no_hp = data['teman'][0]['no_hp']
-        hobby = data['teman'][0]['hobby']
-        jurusan = data['teman'][0]['jurusan']
-        kampung = data['teman'][0]['kampung']
+        panggilan = data['data_angkatan'][0]['panggilan']
+        no_hp = data['data_angkatan'][0]['no_hp']
+        hobby = data['data_angkatan'][0]['hobby']
+        jurusan = data['data_angkatan'][0]['jurusan']
+        kampung = data['data_angkatan'][0]['kampung']
 
         # munculin semua, ga rapi, ada 'u' nya
         # all_data = data['teman'][0]
-        data= "panggilan : "+panggilan+"\no_hp : "+no_hp+"\ hobby: "+hobby\jurusan: "+jurusan+"\kampung: "+kampung
+        data= "panggilan : "+panggilan+"\nno_hp : "+no_hp+"\nhobby : "+hobby+"\njurusan : "+jurusan+"\nkampung :+kampung
         return data
         # return all_data
 
@@ -67,7 +67,7 @@ def cariteman(panggilan,no_hp,hobby,jurusan,kampung):
         return err
 
 #INPUT DATA teman
-def inputteman(panggilan, no_hp, hobby, jurusan, kampung):
+def inputteman(no_hp):
     r = requests.post("http://www.aditmasih.tk/api_awinawin/insert.php", data={'panggilan': panggilan, 'no_hp': no_hp, 'hobby': hobby, 'jurusan': jurusan, 'kampung':kampung})
     data = r.json()
 
