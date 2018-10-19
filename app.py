@@ -43,75 +43,17 @@ handler = WebhookHandler('827a3082a52880e667b25a02b982c2f2')
 notes = {}
 
 #input mencari
-def cariteman(no_hp):
-    URLteman = "http://www.aditmasih.tk/api_awinawin/show.php?no_hp=" + no_hp
+def cariteman(kota):
+    URLteman = "https://time.siswadi.com/timezone/" + kota
     r = requests.get(URLteman)
     data = r.json()
-    err = "data tidak ditemukan"
-    
-    flag = data['flag']
-    if(flag == "1"):
-        panggilan = data['data_angkatan'][0]['panggilan']
-        no_hp = data['data_angkatan'][0]['no_hp']
-        hobby = data['data_angkatan'][0]['hobby']
-        jurusan = data['data_angkatan'][0]['jurusan']
-        kampung = data['data_angkatan'][0]['kampung']
+    # print(data)
+    status = data['time']['timezone']
+    jam = data['time']['time']
+    waktu="Daerah : " + status + "\n" + "Jam sholat : " + jam
 
-        # munculin semua, ga rapi, ada 'u' nya
-        # all_data = data['teman'][0]
-        data= "panggilan : "+panggilan+"\nno_hp : "+no_hp+"\nhobby : "+hobby+"\njurusan : "+jurusan+"\nkampung :+kampung
-        return data
-        # return all_data
+return (waktu)
 
-    elif(flag == "0"):
-        return err
-
-#INPUT DATA teman
-def inputteman(no_hp):
-    r = requests.post("http://www.aditmasih.tk/api_awinawin/insert.php", data={'panggilan': panggilan, 'no_hp': no_hp, 'hobby': hobby, 'jurusan': jurusan, 'kampung':kampung})
-    data = r.json()
-
-    flag = data['flag']
-   
-    if(flag == "1"):
-        return 'Data '+' berhasil dimasukkan\n'
-    elif(flag == "0"):
-        return 'Data gagal dimasukkan\n'
-
-
-#DELETE DATA teman
-def hapusteman(no_hp):
-    r = requests.post("http://www.aditmasih.tk/api_awinawin/delete.php", data={'ho_hp': no_hp})
-    data = r.json()
-
-    flag = data['flag']
-   
-    if(flag == "1"):
-        return 'Data '+no_hp+' berhasil dihapus\n'
-    elif(flag == "0"):
-        return 'Data gagal dihapus\n'
-
-def updateteman(panggilanJadul,panggilan,no_hp,hobby,jurusan,kampung):
-    URLteman = "http://www.aditmasih.tk/api_awin/show.php?panggilan=" + panggilanJadul
-    r = requests.get(URLteman)
-    data = r.json()
-    err = "data tidak ditemukan"
-    teman_jadul=temanjadul
-    flag = data['flag']
-    if(flag == "1"):
-        r = requests.post("http://www.aditmasih.tk/api_awinawin/update.php", data={'panggilan': panggilan, 'no_hp': no_hp, 'hobby': hobby, 'jurusan':jurusan, 'kampung':kampung 'panggilanJadul':panggilanJadul})
-        data = r.json()
-        flag = data['flag']
-
-        if(flag == "1"):
-            return 'Data '+panggilanJadul+'berhasil diupdate\n'
-        elif(flag == "0"):
-            return 'Data gagal diupdate\n'
-
-    elif(flag == "0"):
-        return err
-
-# Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
@@ -121,7 +63,7 @@ def callback():
         handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
-    return 'OK'
+return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -131,16 +73,13 @@ def handle_message(event):
     profile = line_bot_api.get_profile(sender)
 
     data=text.split('-')
-    if(data[0]=='lihat'):
+    if(data[0]=='cek'):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=cariteman(data[1])))
-    elif(data[0]=='tambah'):
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=inputteman(data[1],data[2],data[3],data[4]),data[5])))
-    elif(data[0]=='hapus'):
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=hapusteman(data[1])))
-    elif(data[0]=='ganti'):
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=updateteman(data[1],data[2],data[3],data[4],data[5],data[6])))
+    else:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Bukan menupakan kota di Indonesia pakai cek-(nama kota)"))
+    
    
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=porta
