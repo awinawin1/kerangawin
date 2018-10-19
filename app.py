@@ -36,9 +36,9 @@ from linebot.models import (
 app = Flask(__name__)
 
 # Channel Access Token
-line_bot_api = LineBotApi('Yd9bSGIfnnSbIQMIktXnmylAcM7xOWpFVgX1qb0wOPdsUCHmQJESpvMh2RJSNLjeX+2Qn+AMdgdheLyIVSKDn/T14oxg0IDgs8IXD60kEMiPCUtK1P4j4g6ty5qMKogrQm4qH7e6tnmFqScoeEVT2AdB04t89/1O/w1cDnyilFU=')
+line_bot_api = LineBotApi('fCHDuc8hHkLz0tvOznXtKuRnYbPU/ECyD9jrukCXD6wezR1m8aTPJBkdyqQE9kzpX+2Qn+AMdgdheLyIVSKDn/T14oxg0IDgs8IXD60kEMjVQF1JRpT7V5/2hqUu6AeUZ4llz7zmrUeGo7wWohnxzQdB04t89/1O/w1cDnyilFU=')
 # Channel Secret
-handler = WebhookHandler('827a3082a52880e667b25a02b982c2f2')
+handler = WebhookHandler('3b1e2ee8b8223f9b4eae77269ffc02a0')
 #===========[ NOTE SAVER ]=======================
 notes = {}
 
@@ -49,10 +49,11 @@ def cariteman(kota):
     data = r.json()
     # print(data)
     status = data['time']['timezone']
+    letak = data['location']['address']
     jam = data['time']['time']
-    waktu="Daerah : " + status + "\n" + "Jam sholat : " + jam
+    ini="Daerah : " + status + "\n" + "Kota anda: " + letak + "\n" + "Jam sholat : " + jam
 
-return (waktu)
+return (ini)
 
 @app.route("/callback", methods=['POST'])
 def callback():
