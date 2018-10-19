@@ -43,15 +43,15 @@ handler = WebhookHandler('3b1e2ee8b8223f9b4eae77269ffc02a0')
 notes = {}
 
 #input mencari
-def cariteman(kota):
-    URLteman = "https://time.siswadi.com/timezone/" + kota
+def carijadwal(kota):
+    URLsolat = "https://time.siswadi.com/timezone/" + kota
     r = requests.get(URLteman)
     data = r.json()
     # print(data)
     status = data['time']['timezone']
     letak = data['location']['address']
     jam = data['time']['time']
-    ini="Daerah : " + status + "\n" + "Kota anda: " + letak + "\n" + "Jam sholat : " + jam
+    ini="Lokasi : " + status + "\n" + "Kota anda: " + letak + "\n" + "Jam sholat : " + jam
 
 return (ini)
 
@@ -75,7 +75,7 @@ def handle_message(event):
 
     data=text.split('-')
     if(data[0]=='cek'):
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=cariteman(data[1])))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=carijadwal(data[1])))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Bukan menupakan kota di Indonesia pakai cek-(nama kota)"))
     
