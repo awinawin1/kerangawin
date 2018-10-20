@@ -16,6 +16,7 @@ import sys, random
 import tempfile
 import requests
 import re
+import requests, json
 
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
@@ -45,22 +46,23 @@ def carijadwal(kota):
     URLteman = "https://time.siswadi.com/pray/" + kota
     r = requests.get(URLteman)
     data = r.json()
-    err="-tidak ditemukan kota seperti yang anda ketikkan-"
-    # print(data)
-flag = data['flag']
-if (flag=="1"):
-    Waktu = data['time']['time']
-    Lokasi = data['location']['address']
-    subuh = data['data']['Fajr']
-    Dhuhr = data['data']['Dhuhr']
-    Asr = data['data']['Asr']
-    Maghrib = data['data']['Maghrib']
-    Isha = data['data']['Isha']
-    # print("Daerah : " + status + "\n"+"kota : " + letak + "\n"+ "Jam sholat : " + jam)
-    a = "Waktu akses Anda : " + Waktu +"\n"+"Jadwal Sholat : " + Lokasi +"\n"+ "Subuh: " + subuh +"\n"+ "Dhuhr : " + Dhuhr +"\n"+ "Asr : " + Asr +"\n"+ "Maghrib : " + Maghrib +"\n"+"Isha : "+ Isha
-    return a
-elif(flag=="0"):
-    return err
+    err="kota tidak valid"
+
+    status = data['status']
+    if(status =="OK"):
+        for i in range(0, len(data['data'])):
+            Waktu = data['time']['time']
+            Lokasi = data['location']['address']
+            subuh = data['data']['Fajr']
+            Dhuhr = data['data']['Dhuhr']
+            Asr = data['data']['Asr']
+            Maghrib = data['data']['Maghrib']
+            Isha = data['data']['Isha']
+            # print("Daerah : " + status + "\n"+"kota : " + letak + "\n"+ "Jam sholat : " + jam)
+            a = "Waktu akses Anda : " + Waktu +"\n"+"Jadwal Sholat : " + Lokasi +"\n"+ "Subuh: " + subuh +"\n"+ "Dhuhr : " + Dhuhr +"\n"+ "Asr : " + Asr +"\n"+ "Maghrib : " + Maghrib +"\n"+"Isha : "+ Isha
+        return a
+    elif(status == "error"):
+        return (err)
 
 
 
@@ -83,8 +85,9 @@ def handle_message(event):
     gid = event.source.sender_id #get group_id
     profile = line_bot_api.get_profile(sender)
     
-  if(flag==1):
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=carijadwal(text)))
+    data=text.split('-')
+    if(data[0] ='kota') 
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=carijadwal(text)))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "Kota yang anda masukkan buka kota yang ada di bumi, ketikkan nama kota yang benar :)")) 
     
@@ -93,3 +96,4 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
 app.run(host='0.0.0.0', port=port)
+
