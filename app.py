@@ -56,6 +56,13 @@ def carijadwal(kota):
     # print("Daerah : " + status + "\n"+"kota : " + letak + "\n"+ "Jam sholat : " + jam)
     a = "Waktu akses Anda : " + Waktu +"\n"+"Jadwal Sholat : " + Lokasi +"\n"+ "Subuh: " + subuh +"\n"+ "Dhuhr : " + Dhuhr +"\n"+ "Asr : " + Asr +"\n"+ "Maghrib : " + Maghrib +"\n"+"Isha : "+ Isha
     return a
+def carikiblat(kota):
+    URLkiblat = "https://time.siswadi.com/qibla/" +kota
+    r = requests.get(URLkiblat)
+    data = r.json()
+    gambar=data['data']['image']
+    b = "penunjuk Arah : "+ gambar
+    return b
 
 
 # Post Request
@@ -78,6 +85,7 @@ def handle_message(event):
     profile = line_bot_api.get_profile(sender)
     
     line_bot_api.reply_message(event.reply_token,TextSendMessage(text=carijadwal(text)))
+    line_bot_api.reply_message(event.reply_token,TextSendMessage(text=carikiblat(text)))
     
 import os
 if __name__ == "__main__":
