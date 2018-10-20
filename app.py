@@ -35,22 +35,26 @@ from linebot.models import (
 app = Flask(__name__)
 
 # Channel Access Token
-line_bot_api = LineBotApi('7hjz3UmWTaV8DyImwyZsXOJ++tTd7PDNTE6QqGaHpwURfSfxQhOin6rpLT09EAEBX+2Qn+AMdgdheLyIVSKDn/T14oxg0IDgs8IXD60kEMjKQ2UzrxeeQkDuv0bSNA2JYI8BS0kNcQdfkP4CdO5jAQdB04t89/1O/w1cDnyilFU=')
+line_bot_api = LineBotApi('iN84VXXxDZEG6iZHl4TmHACqEBPsYfz0c7Vd8Lbzv7e64kvXRpq5Jnh9NTqULp9G/B3ucawJAu6nf9VKP+9INrOfUD6cEaAIpY9pCC/QlyiAuHzPoueALcT0zM40hQte/bFjcwSKEzCGFdKlfsAJUwdB04t89/1O/w1cDnyilFU=')
 # Channel Secret
-handler = WebhookHandler('d5c43898787d24fc5cd20b1fc6782b7d')
+handler = WebhookHandler('4a04bf97f085104ce2a7044775665ce2')
 #===========[ NOTE SAVER ]=======================
 notes = {}
 
 def carijadwal(kota):
-    URLteman = "https://time.siswadi.com/timezone/" + kota
+    URLteman = "https://time.siswadi.com/pray/" + kota
     r = requests.get(URLteman)
     data = r.json()
     # print(data)
-    status = data['time']['timezone']
-    letak = data['location']['address']
-    jam = data['time']['time']
+    Waktu = data['time']['time']
+    Lokasi = data['location']['address']
+    subuh = data['data']['Fajr']
+    Dhuhr = data['data']['Dhuhr']
+    Asr = data['data']['Asr']
+    Maghrib = data['data']['Maghrib']
+    Isha = data['data']['Isha']
     # print("Daerah : " + status + "\n"+"kota : " + letak + "\n"+ "Jam sholat : " + jam)
-    a = "Daerah : " + status + "\n"+"kota : " + letak + "\n"+ "Jam sholat : " + jam
+    a = "Waktu akses Anda : " + Waktu +"\n"+"Jadwal Sholat : " + Lokasi +"\n"+ "Subuh: " + subuh +"\n"+ "Dhuhr : " + Dhuhr +"\n"+ "Asr : " + Asr +"\n"+ "Maghrib : " + Maghrib +"\n"+"Isha : "+ Isha
     return a
 
 
@@ -78,5 +82,4 @@ def handle_message(event):
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
-
+app.run(host='0.0.0.0', port=port)
