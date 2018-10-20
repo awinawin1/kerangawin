@@ -50,7 +50,6 @@ def carijadwal(kota):
 
     status = data['status']
     if(status =="OK"):
-        for i in range(0, len(data['data'])):
             Waktu = data['time']['time']
             Lokasi = data['location']['address']
             subuh = data['data']['Fajr']
@@ -85,8 +84,8 @@ def handle_message(event):
     gid = event.source.sender_id #get group_id
     profile = line_bot_api.get_profile(sender)
     
-    data=text.split('-')
-    if(data[0] ='kota') 
+    
+     if(status =="OK"):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=carijadwal(text)))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "Kota yang anda masukkan buka kota yang ada di bumi, ketikkan nama kota yang benar :)")) 
