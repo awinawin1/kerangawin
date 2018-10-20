@@ -45,7 +45,10 @@ def carijadwal(kota):
     URLteman = "https://time.siswadi.com/pray/" + kota
     r = requests.get(URLteman)
     data = r.json()
+    err="-tidak ditemukan kota seperti yang anda ketikkan-"
     # print(data)
+flag = data['flag']
+if (flag=="1"):
     Waktu = data['time']['time']
     Lokasi = data['location']['address']
     subuh = data['data']['Fajr']
@@ -56,13 +59,9 @@ def carijadwal(kota):
     # print("Daerah : " + status + "\n"+"kota : " + letak + "\n"+ "Jam sholat : " + jam)
     a = "Waktu akses Anda : " + Waktu +"\n"+"Jadwal Sholat : " + Lokasi +"\n"+ "Subuh: " + subuh +"\n"+ "Dhuhr : " + Dhuhr +"\n"+ "Asr : " + Asr +"\n"+ "Maghrib : " + Maghrib +"\n"+"Isha : "+ Isha
     return a
-def carikiblat(kota):
-    URLkiblat = "https://time.siswadi.com/qibla/" +kota
-    r = requests.get(URLkiblat)
-    data = r.json()
-    gambar=data['data']['image']
-    b = "penunjuk Arah : "+ gambar
-    return b
+elif(flag=="0"):
+    return err
+
 
 
 # Post Request
@@ -84,8 +83,11 @@ def handle_message(event):
     gid = event.source.sender_id #get group_id
     profile = line_bot_api.get_profile(sender)
     
-    line_bot_api.reply_message(event.reply_token,TextSendMessage(text=carijadwal(text)))
-    line_bot_api.reply_message(event.reply_token,TextSendMessage(text=carikiblat(text)))
+  if(flag==1):
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=carijadwal(text)))
+    else:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "Kota yang anda masukkan buka kota yang ada di bumi, ketikkan nama kota yang benar :)")) 
+    
     
 import os
 if __name__ == "__main__":
