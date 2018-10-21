@@ -60,7 +60,7 @@ def carijadwal(kota):
             # print("Daerah : " + status + "\n"+"kota : " + letak + "\n"+ "Jam sholat : " + jam)
             a = "Waktu akses Anda : " + Waktu +"\n"+"Jadwal Sholat : " + Lokasi +"\n"+ "Subuh: " + subuh +"\n"+ "Dhuhr : " + Dhuhr +"\n"+ "Asr : " + Asr +"\n"+ "Maghrib : " + Maghrib +"\n"+"Isha : "+ Isha
     return a
-    elif(status == "error"):
+    else(status == "error"):
         return (err)
 
 
