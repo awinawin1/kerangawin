@@ -59,7 +59,7 @@ def carijadwal(kota):
             Isha = data['data']['Isha']
             # print("Daerah : " + status + "\n"+"kota : " + letak + "\n"+ "Jam sholat : " + jam)
             a = "Waktu akses Anda : " + Waktu +"\n"+"Jadwal Sholat : " + Lokasi +"\n"+ "Subuh: " + subuh +"\n"+ "Dhuhr : " + Dhuhr +"\n"+ "Asr : " + Asr +"\n"+ "Maghrib : " + Maghrib +"\n"+"Isha : "+ Isha
-        return a
+    return a
     elif(status == "error"):
         return (err)
 
@@ -85,9 +85,10 @@ def handle_message(event):
     profile = line_bot_api.get_profile(sender)
     
     
-     if(status =="OK"):
+     data=text.split('-')
+     if(data[0] ='kota')
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=carijadwal(text)))
-    else:
+     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "Kota yang anda masukkan buka kota yang ada di bumi, ketikkan nama kota yang benar :)")) 
     
     
